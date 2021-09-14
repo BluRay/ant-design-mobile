@@ -1,0 +1,27 @@
+<div role="alert" *ngIf="visiable" class="am-notice-bar" (click)="click()">
+  <div *ngIf="option.icon !== null" class="am-notice-bar-icon">
+    <ng-template [ngTemplateOutlet]="option.icon || voice"></ng-template>
+  </div>
+  <div class="am-notice-bar-content">
+    <div class="marquee">
+      <div [ngClass]="marqueeScroll" [ngStyle]="style">
+        <span>{{ option.content }}</span>
+        <span>{{ option.content }}</span>
+      </div>
+    </div>
+  </div>
+  <div role="button" *ngIf="option.mode && option.action !== null" class="am-notice-bar-operation">
+    <ng-template *ngIf="option.mode === 'closable'" [ngTemplateOutlet]="option.action || cross"></ng-template>
+    <ng-template *ngIf="option.mode === 'link'" [ngTemplateOutlet]="option.action || right"></ng-template>
+  </div>
+</div>
+
+<ng-template #voice>
+  <Icon [type]="'voice'" [size]="'xxs'"></Icon>
+</ng-template>
+<ng-template #cross>
+  <Icon [type]="'cross'" [size]="'md'"></Icon>
+</ng-template>
+<ng-template #right>
+  <Icon [type]="'right'" [size]="'md'"></Icon>
+</ng-template>

@@ -1,0 +1,30 @@
+<div [ngClass]="stepItemCls">
+  <div class="{{ prefixCls }}-item-tail">
+    {{ tailContent }}
+  </div>
+  <div class="{{ prefixCls }}-item-icon">
+    <span *ngIf="isTemplateRef(icon)" [ngClass]="iconCls">
+      <ng-template [ngTemplateOutlet]="icon"></ng-template>
+    </span>
+    <span *ngIf="!isTemplateRef(icon) && (status === 'error' || status === 'finish' || status === 'wait')" [ngClass]="iconCls">
+      <Icon [type]="icon" [size]="iconSize"> </Icon>
+    </span>
+    <span *ngIf="!isTemplateRef(icon) && !(status === 'error' || status === 'finish' || status === 'wait')" [ngClass]="iconCls"
+      >{{ stepNumber }}
+    </span>
+  </div>
+  <div class="{{ prefixCls }}-item-content">
+    <div class="{{ prefixCls }}-item-title">
+      <ng-container *ngIf="!isTemplateRef(title); else titleTemplate">{{ title }}</ng-container>
+    </div>
+    <div *ngIf="description" class="{{ prefixCls }}-item-description">
+      <ng-container *ngIf="!isTemplateRef(description); else descriptionTemplate">{{ description }}</ng-container>
+    </div>
+  </div>
+</div>
+<ng-template #titleTemplate>
+  <ng-template [ngTemplateOutlet]="title"></ng-template>
+</ng-template>
+<ng-template #descriptionTemplate>
+  <ng-template [ngTemplateOutlet]="description"></ng-template>
+</ng-template>

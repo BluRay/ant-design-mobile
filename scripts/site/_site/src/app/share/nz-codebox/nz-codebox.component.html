@@ -1,0 +1,40 @@
+<section class="code-box" [ngClass]="{'expand':nzExpanded, 'code-box-target':nzSelected}" [attr.id]="nzId">
+  <section class="code-box-meta markdown">
+    <div class="code-box-title">
+      <a (click)="navigateToFragment()">{{ nzTitle }}
+        <a class="edit-button" [attr.href]="nzHref" target="_blank">
+          <i nz-icon nzType="edit"></i>
+        </a>
+      </a>
+    </div>
+    <ng-content select="[intro]"></ng-content>
+    <span class="code-expand-icon" nz-tooltip [nzTooltipTitle]="nzExpanded?'Hide Code':'Show Code'" (click)="nzExpanded=!nzExpanded">
+      <img alt="expand code"
+           class="code-expand-icon-show"
+           src="https://gw.alipayobjects.com/zos/rmsportal/OpROPHYqWmrMDBFMZtKF.svg"
+      />
+      <nz-modal
+        [(nzVisible)]="nzExpanded"
+        [nzWidth]="nzWidth"
+        [nzTitle]="nzTitle"
+        [nzCancelText]="null"
+        [nzOkText]="nzOkText()"
+        (nzOnCancel)="handleCancel()"
+        (nzOnOk)="handleOk()"
+      >
+        <nz-highlight [nzCode]="_code" [nzLanguage]="'typescript'"></nz-highlight>
+      </nz-modal>
+    </span>
+  </section>
+  <div class="code-box-actions" style="position: relative; top: 0">
+    <i nz-tooltip [nzTooltipTitle]="'Edit On StackBlitz'" style="opacity: 1;" class="code-box-code-copy" nz-icon nzType="form" (click)="openOnStackBlitz()"></i>
+    <i nz-tooltip [nzTooltipTitle]="'Copy Code'" nz-icon [nzType]="_copied ? 'check' : 'copy'" class="code-box-code-copy" style="opacity: 1;" (click)="copyCode(nzRawCode.default)"></i>
+    <i *ngIf="nzGenerateCommand" nz-tooltip [nzTooltipTitle]="'Copy Generate Command'" nz-icon [nzType]="_commandCopied ? 'check' : 'code'" class="code-box-code-copy" style="opacity: 1;" (click)="copyGenerateCommand(nzGenerateCommand)"></i>
+  </div>
+  <section class="highlight-wrapper" [ngClass]="{'highlight-wrapper-expand':true}">
+    <div class="highlight">
+      <ng-content select="[code]"></ng-content>
+      <nz-highlight [nzCode]="_code" [nzLanguage]="'typescript'"></nz-highlight>
+    </div>
+  </section>
+</section>

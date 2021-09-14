@@ -1,0 +1,145 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "ng-zorro-antd-mobile": {
+      "root": "",
+      "sourceRoot": "site/src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist",
+            "index": "./site/src/index.html",
+            "main": "./site/src/main.ts",
+            "tsConfig": "./site/src/tsconfig.app.json",
+            "polyfills": "./site/src/polyfills.ts",
+            "assets": [
+              "site/src/assets",
+              "site/src/favicon.ico",
+              "site/src/404.html",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
+              },
+              "site/src/manifest.json"
+            ],
+            "styles": [
+              "site/src/styles.less"
+            ],
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "./site/src/environments/environment.ts",
+                  "with": "./site/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": false
+                },
+                "fonts": true
+              },
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "serviceWorker": false
+            }
+          },
+          "defaultConfiguration": ""
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "ng-zorro-antd-mobile:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ng-zorro-antd-mobile:build:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "site/src/tsconfig.app.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "ng-zorro-antd-mobile-e2e": {
+      "root": "",
+      "sourceRoot": "",
+      "projectType": "application"
+    },
+    "ng-zorro-antd-mobile-lib": {
+      "root": "components",
+      "projectType": "library",
+      "prefix": "",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "components/tsconfig.lib.json",
+            "project": "components/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "components/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "components/test.ts",
+            "karmaConfig": "components/karma.conf.js",
+            "polyfills": "components/polyfills.ts",
+            "tsConfig": "components/tsconfig.spec.json",
+            "scripts": []
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "ng-zorro-antd-mobile",
+  "schematics": {
+    "@schematics/angular:component": {
+      "prefix": "app",
+      "style": "less"
+    },
+    "@schematics/angular:directive": {
+      "prefix": "app"
+    }
+  },
+  "cli": {
+    "analytics": false
+  }
+}

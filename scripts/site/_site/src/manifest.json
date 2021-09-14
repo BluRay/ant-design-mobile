@@ -1,0 +1,15 @@
+{
+  "name": "Ant Design Mobile of Angular - NG-ZORRO-MOBILE",
+  "short_name": "NG-ZORRO-MOBILE",
+  "theme_color": "#1976d2",
+  "background_color": "#fafafa",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "assets/img/logo.svg",
+      "sizes": "72x72 96x96 128x128 144x144 152x152 192x192 384x384 512x512"
+    }
+  ]
+}
